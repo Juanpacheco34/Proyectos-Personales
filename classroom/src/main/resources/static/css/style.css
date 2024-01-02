@@ -1,0 +1,98 @@
+html{
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+*,::after,::before{
+    box-sizing: inherit;
+    margin: 0;
+    text-decoration: none;
+}
+
+
+.dropdown{
+    position: relative;
+}
+
+.dropdown-child{
+    position: absolute;
+    list-style: none;
+    padding-left: 1.5rem;
+
+}
+
+.dropdown-child>li{
+    margin-top: 0.5rem;
+}
+
+
+
+.navigation>li{
+    list-style: none;
+    display: inline-block;
+    width: 6rem;
+    margin-top: 1rem;
+    font-size: 1.5rem;
+
+}
+
+
+a:link{
+    color: black;
+}
+
+a:visited{
+    color: black;
+}
+
+a:hover{
+    color: red;
+}
+
+details:hover{
+    color: red;
+    
+}
+
+.new{
+    display: inline-block;
+    margin-left: 25%;
+    margin-bottom: 1rem;
+}
+
+.new:hover{
+    font-weight: bold;
+    background-color: #e8fbf3;
+    color: #1df895;
+}
+
+td input:hover{
+    background-color: #e8fbf3;
+    color: #1df895;
+}
+
+.title{
+    width: 50%;
+    margin: 1.5rem auto;
+    background-color: #ff4444;
+    color: #ffffff;
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+.table{
+    background-color: #f7a5a5;
+    border: thin solid black;
+    border-collapse: collapse;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+
+.table,th,td{
+    border: thin solid black;
+    text-align: center;
+
+}
+
+

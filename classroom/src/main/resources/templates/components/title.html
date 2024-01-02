@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:tiles="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Inicio</title>
+        <link rel="stylesheet" href="../static/css/style.css" th:href="@{/css/style.css}" />
+    </head>
+    <body>
+        <header class="title" th:switch="${r.getRequestURI()}">
+        <h1 th:case="'/'">Base de Datos</h1>
+        <h1 th:case="'/profesores'">Profesores</h1>
+        <h1 th:case="'/estudiantes'">Estudiantes</h1>
+        <h1 th:case="'/asignaturas'">Asignaturas</h1>
+        <h1 th:case="'/inscripcion'">Incripciones</h1>
+        <h1 th:case="'/notas'">Notas</h1>
+        <h1 th:case="'/misCalificaciones'">Mis Calificaciones</h1>
+        </header>
+    </body>
+</html>

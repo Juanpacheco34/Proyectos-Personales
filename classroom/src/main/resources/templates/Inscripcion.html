@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:tiles="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Inscripcion</title>
+    </head>
+    <body>
+        <div th:replace="/components/nav"></div>
+        <div th:replace="/components/title"></div>
+
+        <a th:if="${r.getParameter('value') == 'all' || r.getParameter('value') == null}" th:href="'/inscripcion?value=new'">
+            <input class="new" type="button" value="Nuevo">
+        </a>
+
+        <table class="table" th:if="${r.getParameter('value') == 'all' || r.getParameter('value') == null}">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Estudiante</th>
+                    <th>Asignatura</th>
+                    <th>Accion</th>
+                </tr>     
+            </thead>
+            <tbody>
+                <tr th:each="i : ${i}">
+                    <td th:text="${i.getId()}"></td>
+                    <td th:each="e : ${e}" th:if="${i.getIdEstudiante() == e.getId()}" th:text="${e.getNombreApellido()}"></td>
+                    <td th:each="a : ${a}" th:if="${i.getIdAsignatura() == a.getId()}" th:text="${a.getNombreClase()}"></td>
+                    <td><a th:href="'/inscripcion?value=update&id=' + ${i.getId()}"><input type="button" value="Actualizar"></a></td>
+
+                </tr>
+            </tbody>
+        </table>
+
+        <form th:if="${r.getParameter('value') == 'new' || r.getParameter('value') == 'update'}" th:action="@{/inscripcion}" th:object="${i}" th:method="post">
+
+            <input type="hidden" name="id" th:field="*{id}"/>
+
+            <label for="est">Estudiante: </label>
+            <select th:field="*{idEstudiante}" id="est" name="_idEst" >
+                <option th:value="${x.id}" th:each="x : ${e}" th:text="${x.nombreApellido}"></option>
+            </select>
+            <label for="asig">Asignatura: </label>
+            <select th:field="*{idAsignatura}" id="asig" name="_idAsig" >
+                <option th:value="${x.id}" th:each="x : ${a}" th:text="${x.nombreClase}"></option>
+            </select>
+
+
+
+            <input th:if="${r.getParameter('value') == 'new'}" type="reset" value="Limpiar">
+            <a th:href="'/asignaturas?value=all'">
+                <input type="button" value="Cancelar">
+                <input type="submit" value="Enviar">    
+            </a>
+        </form>
+
+
+    </body>
+</html>

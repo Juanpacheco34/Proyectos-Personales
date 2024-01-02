@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:tiles="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Notas</title>
+    </head>
+    <body>
+        <div th:replace="/components/nav"></div>
+        <div th:replace="/components/title"></div>
+
+
+        <a th:if="${r.getParameter('value') == 'all' || r.getParameter('value') == null}" th:href="'/notas?value=new'">
+            <input class="new" type="button" value="Nuevo">
+        </a>
+        
+        <table class="table" th:if="${r.getParameter('value') == 'all' || r.getParameter('value') == null}">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Estudiantes</th>
+                    <th>Asignaturas</th>
+                    <th>PCorte</th>
+                    <th>SCorte</th>
+                    <th>TCorte</th>
+                    <th>Accion</th>
+                </tr>     
+            </thead>
+            <tbody>
+                <tr th:each="n : ${n}">
+                    <td th:text="${n.getId()}"></td>
+                    <td th:each="e:${e}" th:if="${n.getIdEstudiante() == e.getId()}" th:text="${e.getNombreApellido()}"></td>
+                    <td th:each="a:${a}" th:if="${n.getIdAsignatura() == a.getId()}" th:text="${a.getNombreClase()}"></td>
+                    <td th:text="${n.getPCorte()}"></td>
+                    <td th:text="${n.getSCorte()}"></td>
+                    <td th:text="${n.getTCorte()}"></td>
+
+                    <td><a th:href="'/notas?value=update&id=' + ${n.getId()}"><input type="button" value="Actualizar"></a></td>
+
+                </tr>
+            </tbody>
+        </table>
+
+        <form th:if="${r.getParameter('value') == 'new' || r.getParameter('value') == 'update'}" th:action="@{/notas}" th:object="${n}" th:method="post">
+            <input type="hidden" name="id" th:field="*{id}"/>
+
+
+            <label for="est">Estudiante: </label>
+            <select id="est" th:field="*{idEstudiante}" name="idEstudiante" th:disabled="${r.getParameter('value') == 'update'}">
+                <option th:with="var='......'" th:value="'0'" th:text="${var}" selected></option>
+                <option th:each="e: ${e}" th:value="${e.getId()}" th:text="${e.getNombreApellido()}"></option>
+            </select>
+            <select hidden="" id="est" th:field="*{idEstudiante}" name="idEstudiante">
+                <option th:each="e: ${e}" th:value="${e.getId()}" th:text="${e.getNombreApellido()}"></option>
+            </select>
+
+
+            <label for="asignatura">Asignatura: </label>
+            <select id="asignatura" th:field="*{idAsignatura}" name="idAsignatura" th:disabled="${r.getParameter('value') == 'update'}">
+                <option th:with="var='......'" th:value="'0'" th:text="${var}" selected></option>
+                <option th:each="a: ${a}" th:value="${a.getId()}" th:text="${a.getNombreClase()}"></option>
+            </select>
+            <select hidden="" id="asignatura" th:field="*{idAsignatura}" name="idAsignatura">
+                <option th:each="a: ${a}" th:value="${a.getId()}" th:text="${a.getNombreClase()}"></option>
+            </select>
+
+
+            <label for="pcorte">P Corte</label>
+            <input type="text" id="pcorte" th:field="*{pCorte}" th:value="*{pCorte}"> 
+            <label for="scorte">S Corte</label>
+            <input type="text" id="scorte" th:field="*{sCorte}" th:value="*{sCorte}"> 
+            <label for="tcorte">T Corte</label>
+            <input type="text" id="tcorte" th:field="*{tCorte}" th:value="*{tCorte}"> 
+
+
+
+            <input type="submit" value="Enviar">    
+            <a th:href="'/notas?value=all'">
+                <input type="button" value="Cancelar">
+            </a>
+            <input th:if="${r.getParameter('value') == 'new'}" type="reset" value="Limpiar">
+        </form>
+    </body>
+</html>

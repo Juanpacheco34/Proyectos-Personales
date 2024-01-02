@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:tiles="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>.-.</title>
+        <link rel="stylesheet" th:href="@{css/style.css}"/>
+    </head>
+    <body>
+        <nav class="nav">
+            <ul class="navigation">
+                <li><a th:href="@{/}">Home</a></li>
+                <li>
+                    <details class="dropdown">
+                        <summary>Menu</summary>
+                        <ul class="dropdown-child">
+                            <li><a th:href="@{/profesores}">Profesores</a></li>
+                            <li><a th:href="@{/estudiantes}">Estudiantes</a></li>
+                            <li><a th:href="@{/asignaturas}">Asignaturas</a></li>
+                            <li><a th:href="@{/inscripcion}">Inscripcion</a></li>               
+                            <li><a th:href="@{/notas}">Notas</a></li>               
+                            <li><a th:href="@{/misCalificaciones}">Mis Calificaciones</a></li>               
+                        </ul>                   
+                    </details>
+                </li>
+
+            </ul>
+        </nav>
+    </body>
+</html>
