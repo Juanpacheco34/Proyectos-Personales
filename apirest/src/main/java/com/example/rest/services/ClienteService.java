@@ -47,17 +47,9 @@ public class ClienteService {
     @Transactional(readOnly = true)
     public Cliente findByIdService(Long id) throws Exception {
 
-        log.info("Hola" + id);
-
         Optional<Cliente> c = cr.findById(id);
-        log.info("antes de entrar" + c.isPresent());
-        if (c.isPresent()) {
-            return c.get();
-
-        } else {
-
-            throw new Exception("No hay valores Disponibles");
-        }
+        
+        return c.isPresent() ? c.get() : null; // isPresent booleano true devuelve el objeto , false nulo
 
     }
 

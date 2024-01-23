@@ -17,9 +17,9 @@ import org.springframework.stereotype.Repository;
  * @author jpach
  */
 @Repository
-public interface ProductRepository extends JpaRepository<Product, Long>{
-        //Se crea una interfaz que herede de jpaRepository para poder obtener los metodos de consulta
-    
+public interface ProductRepository extends JpaRepository<Product, Long> {
+
+    /*JpaRepository no maneja metodo para update asi que creamos uno propio con param indicamos en la consulta cuales son los parametro que pasaremos*/
     @Modifying
     @Query("UPDATE Product p SET p.cantidad=:cantidad, p.precio=:precio WHERE p.id=:id")
     public void updateById(@Param("id") Long id, @Param("cantidad") int cantidad, @Param("precio") BigDecimal precio);

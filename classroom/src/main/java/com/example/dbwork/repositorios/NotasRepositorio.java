@@ -86,4 +86,8 @@ public class NotasRepositorio implements Repo<Notas> {
     public List<Inscripcion> inscripcionAll(){
         return jt.query("SELECT * FROM INSCRIPCION ORDER BY ID_PK ASC ", new inscripcionMapeo());
     }
+    
+        public List<Notas> findStudentById(int id){
+        return jt.query("SELECT * FROM Notas WHERE ID_ESTUDIANTE_FK  = ?",new Object[]{id}, new notasMapeo());
+    }
 }

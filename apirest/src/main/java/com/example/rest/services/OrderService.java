@@ -4,7 +4,6 @@
  */
 package com.example.rest.services;
 
-import com.example.rest.models.Cliente;
 import com.example.rest.models.Orders;
 import com.example.rest.repositorys.ClienteRepository;
 import com.example.rest.repositorys.OrderRepository;
@@ -25,42 +24,18 @@ public class OrderService {
     /*Inyectamos los bean para manejar sus metodos en el service */
     @Autowired
     OrderRepository or;
-    @Autowired
-    ClienteRepository cr;
 
     /*Insertamos nuestro registro orders a la tabla*/
     @Transactional
-    public Orders saveService(Orders o) throws Exception {
-
+    public void saveService(Orders o) throws Exception {
         Validar(o);
-
-        Orders OSave = new Orders();
-
-        OSave.setNombreProducto(o.getNombreProducto());
-        OSave.setCantidad(o.getCantidad());
-        /*en este opcional vamos a guardar nuestro objeto cliente para después en la línea
-        siguiente hacer una condición que diga que sí está presente nos va a mandar el objeto
-        en particular y si no nos manda un null isPresent es un tipo booleano*/
-        Optional<Cliente> c = cr.findById(o.getCliente().getId());
-        OSave.setCliente(c.isPresent() ? c.get() : null);
-        OSave.setFecha(new Date());
-
-        or.save(OSave);
-        return OSave;
+        o.setFecha(new Date());
+        
+        or.save(o);
 
     }
-
-    @Transactional
-    public Orders updateOrdersByIdService(Long id, int cantidad) throws Exception {
-        if (id <= 0 || cantidad <= 0) {
-            throw new Exception("No es posible Actualizar el registro, problema al actualizar");
-        }
-        Orders o = new Orders();
-        Optional<Orders> Op = or.findById(id);
-
-        return o;
-    }
-
+    
+    /*Buscaremos por id la orden que queremos ver en caso de que no se encuentre devolvera un null*/
     @Transactional
     public Orders findByIdService(Long id) {
         Optional<Orders> op = or.findById(id);
@@ -76,8 +51,8 @@ public class OrderService {
 
     /*En este metodo validaremos que el usuario ingrese todos los datos requeridos*/
     public void Validar(Orders o) throws Exception {
-        if (o.getNombreProducto().isEmpty() || o.getCantidad() <= 0 || o.getCliente().getId() <= 0) {
-            throw new Exception("Todos los campos son obligatorios || Debe diligenciarlos correctamente");
+        if (o.getCliente().getId() == 0 || o.getProduct().isEmpty()) {
+            throw new Exception("La orden debe tener un cliente asignado || La orden debe tener productos digitados");
         }
 
     }

@@ -9,15 +9,17 @@
         <div th:replace="components/nav"></div>
         <div th:replace="components/title"></div>
 
-        <!--        <form th:if="${r.getParameter('value') == null}" action="@{/misCalificaciones}">
-                    <label for="id">ID: </label>
-                    <input type="text" name="id" id="id" placeholder="Ingrese el Id del Estudiante">
-                    <a th:href="@{/misCalificaciones(value='find', id=${#fields.value('id')})}"> 
-                    <input type="button" value="Buscar">    
-                    </a>
-                </form>-->
-
-        <table class="table">
+        <form th:method="GET" th:action="@{/misCalificaciones/search}" th:if="${r.getParameter('value') == null}">
+            <label>
+                Id Usuario: 
+                <input type="text" name="id" placeholder="Ingresa el id del usuario" >
+            </label>
+            <input type="submit" value="Enviar">
+        </form>
+        
+        
+        <!-- Vista de la tabla -->
+        <table class="table" th:if="${r.getParameter('value') == 'view'}">
             <thead>
                 <tr>
                     <th>Id</th>
@@ -34,23 +36,24 @@
                     <td th:each="e : ${e}" th:if="${n.getIdEstudiante() == e.getId()}" th:text="${e.getId()}"></td>
                     <td th:each="e : ${e}" th:if="${n.getIdEstudiante() == e.getId()}" th:text="${e.getNombreApellido()}"></td>
                     <td th:each="a : ${a}" th:if="${n.getIdAsignatura() == a.getId()}" th:text="${a.getNombreClase()}"></td>
-                    
-                    
+
+
                     <td th:each="e : ${e}" th:if="${n.getIdEstudiante() == e.getId()}">
-                    <th:block th:each="a : ${a}" th:if="${n.getIdAsignatura() == a.getId()}" th:text="${n.getPCorte()}" ></th:block>
-                    </td>
-                    
-                    <td th:each="e : ${e}" th:if="${n.getIdEstudiante() == e.getId()}">
-                    <th:block th:each="a : ${a}" th:if="${n.getIdAsignatura() == a.getId()}" th:text="${n.getSCorte()}" ></th:block>
-                    </td>
-                    
-                    <td th:each="e : ${e}" th:if="${n.getIdEstudiante() == e.getId()}">
-                    <th:block th:each="a : ${a}" th:if="${n.getIdAsignatura() == a.getId()}" th:text="${n.getTCorte()}" ></th:block>
-                    </td>
-                    
-                    <td th:each="nd : ${nd}" th:if="${nd.getIdEstudiante() == n.getIdEstudiante() && nd.getIdAsignatura() == n.getIdAsignatura()}" th:text="${nd.getNotaDefinitiva()}"></td>
-                </tr>
-            </tbody>
-            </table>
-            </body>
-            </html>
+            <th:block th:each="a : ${a}" th:if="${n.getIdAsignatura() == a.getId()}" th:text="${n.getPCorte()}" ></th:block>
+        </td>
+
+        <td th:each="e : ${e}" th:if="${n.getIdEstudiante() == e.getId()}">
+        <th:block th:each="a : ${a}" th:if="${n.getIdAsignatura() == a.getId()}" th:text="${n.getSCorte()}" ></th:block>
+    </td>
+
+    <td th:each="e : ${e}" th:if="${n.getIdEstudiante() == e.getId()}">
+    <th:block th:each="a : ${a}" th:if="${n.getIdAsignatura() == a.getId()}" th:text="${n.getTCorte()}" ></th:block>
+</td>
+
+<td th:each="nd : ${nd}" th:if="${nd.getIdEstudiante() == n.getIdEstudiante() && nd.getIdAsignatura() == n.getIdAsignatura()}" th:text="${nd.getNotaDefinitiva()}"></td>
+
+        </tr>
+</tbody>
+</table>
+</body>
+</html>

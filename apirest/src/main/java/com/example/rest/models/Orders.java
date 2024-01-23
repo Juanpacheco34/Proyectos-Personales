@@ -10,10 +10,11 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
-import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -29,25 +30,18 @@ import lombok.NoArgsConstructor;
 //Constructores
 @NoArgsConstructor
 @AllArgsConstructor
-
-/*Serializable: pueden ser convertidos en un formato que puede ser guardado en un archivo,
-transmitido a través de la red, o almacenado de alguna manera persistente.*/
-public class Orders implements Serializable { 
+public class Orders  { 
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @Column(nullable = false) //No puede ser nulo
-    private String nombreProducto;
-    
-    @Column(nullable = false)
-    private int cantidad;
-
     /*Aqui indicamos una relacion de muchos a uno*/
     @ManyToOne
     private Cliente cliente;
-
+    
+    @OneToMany
+    private List<Product> product;
 
     /*Indicamos a la tabla que solo vamos almacenar la fecha*/
     @Temporal(TemporalType.DATE)

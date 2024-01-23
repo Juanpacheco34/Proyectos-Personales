@@ -47,8 +47,8 @@ public class PromedioRepositorio implements Repo<Promedio> {
     @Override
     public boolean actualizar(Promedio x) {
         try {
-            String sql = "UPDATE PROMEDIO SET PROMEDIO=?";
-            jt.update(sql, x.getPromedio());
+            String sql = "UPDATE PROMEDIO SET PROMEDIO=? WHERE ID_PK=?";
+            jt.update(sql, x.getPromedio(),x.getId());
             return true;
         } catch (Exception e) {
             System.out.println("Error al Actualizar " + e.getMessage());

@@ -52,10 +52,10 @@ public class AsignaturaRepositorio implements Repo<Asignaturas> {
     @Override
     public boolean actualizar(Asignaturas x) {
         try {
-        String sql = "UPDATE ASIGNATURAS SET NOMBRE_CLASE=?,ID_PROFESOR_FK=?";
-        jt.update(sql,x.getNombreClase(),x.getIdProfesor());
-        return true;
-            
+            String sql = "UPDATE ASIGNATURAS SET NOMBRE_CLASE=?,ID_PROFESOR_FK=? WHERE ID_PK=?";
+            jt.update(sql, x.getNombreClase(), x.getIdProfesor(), x.getId());
+            return true;
+
         } catch (Exception e) {
             System.err.println("Error al Actualizar " + e.getMessage());
             return false;
@@ -64,7 +64,7 @@ public class AsignaturaRepositorio implements Repo<Asignaturas> {
 
     @Override
     public List<Asignaturas> buscarTodos(Pageable p) {
-        
+
         return jt.query("SELECT * FROM ASIGNATURAS", new asignaturaMapeo());
     }
 
@@ -72,10 +72,10 @@ public class AsignaturaRepositorio implements Repo<Asignaturas> {
     public Asignaturas buscarId(int id) {
         Object[] params = new Object[]{id};
         String sql = "SELECT * FROM ASIGNATURAS WHERE ID_PK=?";
-        return jt.queryForObject(sql,params,new asignaturaMapeo());
+        return jt.queryForObject(sql, params, new asignaturaMapeo());
     }
-    
-        public List<Profesores> profesores(){
+
+    public List<Profesores> profesores() {
         return jt.query("SELECT * FROM PROFESORES ORDER BY NOMBRE_APELLIDO ASC", new profesoresMapeo());
     }
 
